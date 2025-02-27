@@ -43,7 +43,7 @@ For further details, see the [TMTDyn paper](https://journals.sagepub.com/doi/10.
 
 **Hybrid Rigid-Soft Representation:** The arm consists of an inflatable sleeve but may require a rigid anchoring mechanism for debris capture. TMTDyn allows seamless integration of rigid and flexible components within a single framework. However, experimental validation may be needed to assess the accuracy of these interactions.
 
-**Material Modeling Needs:** While TMTDyn supports various constitutive models, its ability to handle nonlinear hyperelastic materials, such as Neo-Hookean or Mooney-Rivlin models, needs further evaluation. Accurately representing these materials is crucial for understanding the behavior of inflatable robotic arms.
+**Material Modeling Needs:** While TMTDyn supports various constitutive models, its ability to handle nonlinear hyperelastic materials, such as [[Neo-Hookean]]  or [[Mooney-Rivlin]] models, needs further evaluation. Accurately representing these materials is crucial for understanding the behavior of inflatable robotic arms.
 
 #### B) Numerical Simulation & Equation of Motion (EOM) Derivation
 

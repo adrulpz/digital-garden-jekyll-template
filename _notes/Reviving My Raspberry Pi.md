@@ -10,7 +10,13 @@ Now, I still can’t connect to Eduroam, and I still don’t fully understand wh
 
 Currently, I’m looking into adding swap space to help with memory constraints. On the bright side, I realized I don’t have to burn through my mobile data anymore—I can just use the **QM-Visitor** network.
 
-I’m almost certain I shouldn’t be spending this much time on this, but now that I’ve started, I feel like I need to get it properly set up. At the very least, I want it ready so I can install ROS2 whenever I decide to pick it up again
+I’m almost certain I shouldn’t be spending this much time on this, but now that I’ve started, I feel like I need to get it properly set up. At the very least, I want it ready so I can install ROS2 whenever I decide to pick it up again.
+
+**Next post:** [[From Laggy to Usable]]
+
+
+
+
 
 
  

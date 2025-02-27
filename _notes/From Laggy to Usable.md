@@ -35,5 +35,8 @@ sudo swapon /swapfile
 While it’s still not the fastest setup, these optimizations have made a significant difference. The Raspberry Pi now runs smoothly enough to start experimenting, and I was finally able to install ROS2. I haven’t tested it yet, but at least now I have a working system ready to go. The next step will be running some actual ROS2 processes and evaluating its performance.
 
 
+**Previous Post :** [[Reviving My Raspberry Pi]] 
+**Next Post:** [[When Optimizing Isn’t Enough]]
+
 
 
