@@ -1,4 +1,5 @@
-[Ansys Hyperelasticity course](https://innovationspace.ansys.com/product/hyperelasticity/) where the model is mentioned 
+[Ansys Hyperelasticity course](https://innovationspace.ansys.com/product/hyperelasticity/) where the model is mentioned and [[Notes on the ANSYS hyperelasticity course|some notes]] on it. 
+
 ## The Neo-Hookean Model
 
 The **Neo-Hookean model** is a simple yet effective constitutive model used to describe the **nonlinear elastic behavior** of materials, especially soft materials like **rubbers, biological tissues, and inflatables**. It is a special case of **hyperelastic material models**, meaning that it derives from a **strain energy function**.
