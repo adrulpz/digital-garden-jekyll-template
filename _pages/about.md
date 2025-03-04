@@ -27,7 +27,7 @@ permalink: /about/
     flex: 1;
     text-align: center;
     padding: 20px;
-    padding-top: 100px;
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,7 +87,7 @@ permalink: /about/
     line-height: 1.8;
     margin-bottom: 20px;
     text-align: justify;
-    font-family: "Trajan Pro"; ###
+    font-family: "Trajan Pro", serif;
 }
 
 .about-text:last-of-type {
@@ -159,7 +159,7 @@ permalink: /about/
         <div class="right-column">
             <h1 class="about-heading">ABOUT ME</h1>
             <p class="about-text">Originally from Mexico, I'm currently in the second year of my PhD in Aerospace Engineering at Queen Mary University of London. As an early-career researcher, I'm exploring the development of soft inflatable manipulators for space applications.</p>
-            <p class="about-text">With a background in Bionic Engineering (UPIITA-IPN), I also enjoy topics like biomimetics, robotics, and creative problem-solving. I’m always looking to learn something new and happy to chat about exciting ideas in space technologies and beyond.</p>
+            <p class="about-text">With a background in Bionic Engineering (UPIITA-IPN), I also enjoy topics like biomimetics, robotics, and creative problem-solving. I'm always looking to learn something new and happy to chat about exciting ideas in space technologies and beyond.</p>
             <p class="about-text">Feel free to reach out if you'd like to collaborate or share insights.</p>
             
             <a href="mailto:a.lopezlopez@qmul.ac.uk" class="email-button">EMAIL ME</a>
