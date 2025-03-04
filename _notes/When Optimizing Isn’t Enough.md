@@ -1,3 +1,6 @@
+---
+---
+
 My Final Attempt at Installing ROS 2 on my Raspberry Pi 3
 
 After optimizing my **Raspberry Pi 3**, I was finally ready to use **ROS 2**—or so I thought. I had switched to a **lighter desktop environment**, installed a **more efficient browser**, and expanded **swap space to 8GB**. The system felt noticeably smoother, and I was ready to take on the real challenge.

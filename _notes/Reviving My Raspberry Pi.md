@@ -1,3 +1,6 @@
+---
+---
+
 #### Why did I waste my time trying to connect eduroam?
 
 I decided to dust off my Raspberry Pi after about five years, thinking it would be good practice to use the terminal again and have another operating system without messing with my laptop. Since I had a new SD card, I figured I might as well install a fresh OS rather than dealing with whatever was left on the old one.

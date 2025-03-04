@@ -1,3 +1,6 @@
+---
+---
+
 [Ansys Hyperelasticity course](https://innovationspace.ansys.com/product/hyperelasticity/) where the model is mentioned and [[Notes on the ANSYS hyperelasticity course|some notes]] on it. 
 
 ## The Neo-Hookean Model

@@ -1,3 +1,6 @@
+---
+---
+
 based on [[A comparison among Neo-Hookean model, Mooney-Rivlin model, and Ogden model for chloroprene rubber]] 
 
 The Neo-Hookean and Mooney-Rivlin models are hyperelastic material models defined by the strain energy density function derived from the invariants of the left Cauchy-Green deformation tensor.

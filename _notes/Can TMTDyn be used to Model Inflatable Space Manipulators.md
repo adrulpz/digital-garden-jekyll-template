@@ -1,3 +1,6 @@
+---
+---
+
 ### 1. Introduction
 
 In this post, I will outline how the TMTDyn framework could be applied to the simulation and control of an inflatable robotic arm for space debris capture. My work focuses on soft robotic actuators, which at the moment are proposed as a pair of inflatable sleeves that include sealed sections to induce bending. This approach aims to create a reusable and adaptive capture mechanism, reducing mission costs and the risk of further debris generation.

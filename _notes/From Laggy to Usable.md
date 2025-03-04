@@ -1,3 +1,6 @@
+---
+---
+
 ### Optimizing My Raspberry Pi Before Installing ROS2  
 
 After deciding to leave the connection issue aside, the next step before installing ROS2 was to improve the overall performance of my Raspberry Pi 3. Initially, the system was extremely slow—to the point that even simple tasks like moving the mouse would cause noticeable lag or momentary freezes. Running ROS2 in this state wouldn’t have been practical, so I focused on optimizing the setup.  
