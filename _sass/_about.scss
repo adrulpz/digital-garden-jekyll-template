@@ -4,6 +4,11 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+    padding: 10px;
+  }
 }
 
 .about-container {
@@ -17,8 +22,11 @@
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     padding: 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -33,7 +41,8 @@
   justify-content: flex-start;
 
   @media (max-width: 768px) {
-    padding-top: 30px;
+    padding: 20px 10px;
+    padding-top: 20px;
   }
 }
 
@@ -64,17 +73,27 @@
 
 .name {
   font-size: 2.8em;
-  margin: 20px 0;
+  margin: 20px 0 10px 0;
   color: #4a3427;
   font-family: "Trajan Pro", serif;
   text-align: center;
   width: 100%;
+
+  @media (max-width: 768px) {
+    font-size: 2.2em;
+    margin: 10px 0 5px 0;
+  }
 }
 
 .pronouns {
   font-size: 1.4em;
-  margin-bottom: 0;
+  margin: 0 0 10px 0;
   color: #4a3427;
+
+  @media (max-width: 768px) {
+    font-size: 1.2em;
+    margin: 0 0 5px 0;
+  }
 }
 
 .title {
@@ -82,6 +101,11 @@
   color: #4a3427;
   margin-top: 0;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
 }
 
 .about-heading {
@@ -93,8 +117,8 @@
   text-align: center;
 
   @media (max-width: 768px) {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+    font-size: 2em;
+    margin-bottom: 15px;
   }
 }
 
@@ -107,12 +131,15 @@
   font-family: "Trajan Pro", serif;
 
   @media (max-width: 768px) {
-    font-size: 1em;
+    font-size: 0.95em;
+    line-height: 1.6;
     text-align: left;
+    margin-bottom: 15px;
+    padding: 0 10px;
   }
 
   &:last-of-type {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 }
 
