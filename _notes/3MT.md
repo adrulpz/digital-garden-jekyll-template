@@ -1,3 +1,6 @@
+---
+---
+
 - What is the beginning of your research? (your hook and context)
 
 - What is the middle of your research? (what you’re doing and why it matters)
