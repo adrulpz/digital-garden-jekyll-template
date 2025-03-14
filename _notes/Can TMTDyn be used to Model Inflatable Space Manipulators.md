@@ -1,4 +1,5 @@
 ---
+category: research
 ---
 
 ### 1. Introduction
@@ -42,7 +43,7 @@ For further details, see the [TMTDyn paper](https://journals.sagepub.com/doi/10.
 
 #### A) Modeling Inflatable Structures
 
-**Soft Structure Representation:** My robotic arm features flexible, deformable sections, but it is unclear whether it should be treated as a continuum structure or as a segmented hybrid system, making traditional rigid-body models inadequate. TMTDyn’s Reduced-Order Modeling (ROM) approach could provide a computationally efficient alternative to FEM-based methods. However, ROM may not fully capture localized behaviors like buckling or wrinkling under pressure, which are common in inflatable systems.
+**Soft Structure Representation:** My robotic arm features flexible, deformable sections, but it is unclear whether it should be treated as a continuum structure or as a segmented hybrid system, making traditional rigid-body models inadequate. TMTDyn's Reduced-Order Modeling (ROM) approach could provide a computationally efficient alternative to FEM-based methods. However, ROM may not fully capture localized behaviors like buckling or wrinkling under pressure, which are common in inflatable systems.
 
 **Hybrid Rigid-Soft Representation:** The arm consists of an inflatable sleeve but may require a rigid anchoring mechanism for debris capture. TMTDyn allows seamless integration of rigid and flexible components within a single framework. However, experimental validation may be needed to assess the accuracy of these interactions.
 
@@ -52,7 +53,7 @@ For further details, see the [TMTDyn paper](https://journals.sagepub.com/doi/10.
 
 - TMTDyn enables automatic EOM derivation, making it easier to analyze system dynamics without manually solving complex nonlinear equations.
     
-- Unlike finite element methods (FEM), which are computationally expensive but highly accurate for large deformations, TMTDyn’s ROM approach allows for faster simulations. However, a discretized beam model might better capture localized deformations in highly flexible structures.
+- Unlike finite element methods (FEM), which are computationally expensive but highly accurate for large deformations, TMTDyn's ROM approach allows for faster simulations. However, a discretized beam model might better capture localized deformations in highly flexible structures.
 
 ### 4. Key Questions for Discussion
 
@@ -64,9 +65,9 @@ For further details, see the [TMTDyn paper](https://journals.sagepub.com/doi/10.
 2. **Handling Nonlinear Material Properties**
     
     - While TMTDyn supports various constitutive models, further evaluation is needed to determine its ability to accurately represent nylon-based inflatable structures. Unlike highly extensible elastomers, nylon has low stretchability but exhibits significant membrane tension-stiffening under pressure.
-    - Would combining TMTDyn’s fast solvers with an external FEM validation improve the accuracy of simulations?
+    - Would combining TMTDyn's fast solvers with an external FEM validation improve the accuracy of simulations?
 
 ### 5. Next Steps
 
-- Validate TMTDyn’s feasibility for modeling large, flexible, inflatable arms.
+- Validate TMTDyn's feasibility for modeling large, flexible, inflatable arms.
 - Determine whether ROM is sufficient or if a more detailed beam-based model is needed.

@@ -1,4 +1,5 @@
 ---
+title: "3MT"
 ---
 
 - What is the beginning of your research? (your hook and context)
@@ -13,7 +14,7 @@ Imagine a future where a single fragment of metal, no larger than a coin, destro
 ---
 
 **Problem**  
-From **telecommunications** to **navigation** and **Earth observation**, our dependence on **satellite** services is increasing. At the same time, uncontrolled **debris accumulation** raises the risk of collisions, which generate even more fragments—accelerating a chain reaction known as the **Kessler Syndrome**. Without effective **mitigation** and removal strategies, critical **orbits** could become too hazardous for future operations.”
+From **telecommunications** to **navigation** and **Earth observation**, our dependence on **satellite** services is increasing. At the same time, uncontrolled **debris accumulation** raises the risk of collisions, which generate even more fragments—accelerating a chain reaction known as the **Kessler Syndrome**. Without effective **mitigation** and removal strategies, critical **orbits** could become too hazardous for future operations.
 
 ---
 

@@ -1,4 +1,5 @@
 ---
+category: research
 ---
 
 based on [[A comparison among Neo-Hookean model, Mooney-Rivlin model, and Ogden model for chloroprene rubber]] 
