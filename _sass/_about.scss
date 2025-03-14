@@ -26,6 +26,8 @@
     padding: 20px;
     margin: 0;
     width: 100%;
+    max-width: 100%;
+    border-radius: 0;
     box-sizing: border-box;
   }
 }
@@ -164,11 +166,21 @@
   width: 100%;
   text-align: center;
 
+  @media (max-width: 768px) {
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+
   p {
     color: #4a3427;
     margin-bottom: 25px;
     font-size: 1.2em;
     font-family: "Trajan Pro", serif;
+
+    @media (max-width: 768px) {
+      font-size: 1em;
+      margin-bottom: 15px;
+    }
   }
 }
 
@@ -177,6 +189,10 @@
   flex-direction: column;
   gap: 20px;
   align-items: center;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
 }
 
 .social-link {
@@ -189,8 +205,22 @@
   font-family: "Trajan Pro", serif;
   white-space: nowrap;
 
+  @media (max-width: 768px) {
+    font-size: 0.9em;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    white-space: normal;
+    text-align: left;
+  }
+
   img {
     width: 30px;
     height: 30px;
+
+    @media (max-width: 768px) {
+      width: 25px;
+      height: 25px;
+    }
   }
 } 
