@@ -1,5 +1,5 @@
 ---
-title: "3MT"
+title: 3MT
 ---
 
 - What is the beginning of your research? (your hook and context)
