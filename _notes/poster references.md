@@ -4,7 +4,7 @@ category: research
 ---
 # Soft Robotics for Space Applications 
 
-[[SEMS PhD Poster Template-v5.jpg]]
+![[SEMS PhD Poster Template-v5.jpg]]
 
 
 
