@@ -4,7 +4,7 @@ category: research
 ---
 ## Workshop: Soft Robotics for Space Applications 
 
-![[SEMS PhD Poster Template-v5.jpg]]
+![[my_website/assets/SEMS PhD Poster Template-v5.jpg]]
 
 
 
