@@ -7,9 +7,6 @@ category: research
 <img src="{{ site.baseurl }}/assets/poster.jpg" alt="Poster">
 
 
-
- [1] **European Space Agency,** “Discosweb statistics,” 2024. . Available: https://sdup.esoc.esa.int/discosweb/statistics/
-
 [2] **J. Ouet al.** , “Aeromorph—heat-sealing inflatable shape-change materials for interaction design,” in Proc. 29th Annual Symposium on User Interface Software and Technology, pp. 121–132, 2016.
 
 [3] **F. Faureet al.** , “SOFA: A multi-model framework for interactive physical simulation,” in Soft Tissue Biomechanical Modelling for Computer Assisted Surgery, Springer, pp. 283–321, 2012.
