@@ -3,6 +3,7 @@ title: Poster- ICRA 2025
 category: research
 ---
 ## Workshop: Soft Robotics for Space Applications 
+[Link to the Paper](https://softroboticsforspace.eu/images/paper-submissions/Lopez-ICRA2025-Soft-Robotics-for-Space-Applications.pdf)
 
 <img src="{{ site.baseurl }}/assets/poster.jpg" alt="Poster">
 
