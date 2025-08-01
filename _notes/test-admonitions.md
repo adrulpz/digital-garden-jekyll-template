@@ -1,6 +1,6 @@
 ---
-title: "Test Admonitions"
-category: research
+title: Test Admonitions
+category:
 ---
 
 # Test Admonitions
