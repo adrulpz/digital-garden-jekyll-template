@@ -15,7 +15,7 @@
   display: flex;
   gap: 50px;
   padding: 40px;
-  background-color: var(--box-bg);
+  background-color: #e5d6cc;
   border-radius: 10px;
   max-width: 1200px;
   margin: 0 auto;
@@ -76,7 +76,7 @@
 .name {
   font-size: 2.8em;
   margin: 20px 0 10px 0;
-  color: var(--text-color);
+  color: #4a3427;
   font-family: 'Marcellus', serif;
   text-align: center;
   width: 100%;
@@ -90,7 +90,7 @@
 .pronouns {
   font-size: 1.4em;
   margin: 0 0 10px 0;
-  color: var(--text-color);
+  color: #4a3427;
 
   @media (max-width: 768px) {
     font-size: 1.2em;
@@ -100,7 +100,7 @@
 
 .title {
   font-size: 1.8em;
-  color: var(--text-color);
+  color: #4a3427;
   margin-top: 0;
   margin-bottom: 20px;
 
@@ -112,7 +112,7 @@
 
 .about-heading {
   font-size: 3.2em;
-  color: var(--text-color);
+  color: #4a3427;
   font-family: 'Marcellus', serif;
   margin-bottom: 30px;
   margin-top: 0;
@@ -125,7 +125,7 @@
 }
 
 .about-text {
-  color: var(--text-color);
+  color: #4a3427;
   font-size: 1.1em;
   line-height: 1.8;
   margin-bottom: 20px;
@@ -147,8 +147,8 @@
 
 .email-button {
   display: inline-block;
-  background-color: var(--text-color);
-  color: var(--bg-color);
+  background-color: #4a3427;
+  color: white;
   padding: 15px 40px;
   text-decoration: none;
   border-radius: 5px;
@@ -172,7 +172,7 @@
   }
 
   p {
-    color: var(--text-color);
+    color: #4a3427;
     margin-bottom: 25px;
     font-size: 1.2em;
     font-family: 'Marcellus', serif;
@@ -199,7 +199,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  color: var(--text-color);
+  color: #4a3427;
   text-decoration: none;
   font-size: 1.1em;
   font-family: 'Marcellus', serif;
