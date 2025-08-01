@@ -7,7 +7,10 @@ This post walks through how I fixed that: first by customizing my terminal to sh
 
 ## Step 1: I Updated `.bashrc` to Show the Git Branch in My Prompt
 
-> ℹ️ **What is `.bashrc`?** 
+
+> [!info] **What is `.bashrc`?**
+> The `.bashrc` file is a user-level configuration script executed whenever a new interactive Bash terminal session begins. It is typically used to customize the shell environment, define aliases, and adjust the command prompt.
+
 >The `.bashrc` file is a user-level configuration script executed whenever a new interactive Bash terminal session begins. It is typically used to customize the shell environment, define aliases, and adjust the command prompt.
 
 I opened the `.bashrc` file using:
@@ -102,7 +105,7 @@ Git prompted me for authentication:
 `Username for 'https://github.com': adrulpz Password for 'https://github.com':`
 ```
 
->🛑 **Password Rejected**  
+🛑 **Password Rejected**
 GitHub has deprecated password-based authentication over HTTPS, so even though I entered my GitHub password, the push failed. Instead, GitHub now requires the use of **Personal Access Tokens (PATs)** for secure access.
 
 To resolve this, I created a token via the GitHub web interface:
