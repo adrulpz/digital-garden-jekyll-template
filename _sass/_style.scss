@@ -10,6 +10,100 @@ $color-box-background: #e5d6cc;
 $border-radius: 4px;
 $font-family: 'Marcellus', serif;
 
+// Callout styling
+.callout {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 6px;
+  border-left: 4px solid;
+  
+  &.info {
+    background-color: #e3f2fd;
+    border-left-color: #2196f3;
+    color: #0d47a1;
+    
+    &::before {
+      content: "ℹ️ ";
+      margin-right: 0.5rem;
+      font-weight: bold;
+    }
+  }
+  
+  &.warning {
+    background-color: #fff3e0;
+    border-left-color: #ff9800;
+    color: #e65100;
+    
+    &::before {
+      content: "⚠️ ";
+      margin-right: 0.5rem;
+      font-weight: bold;
+    }
+  }
+  
+  &.note {
+    background-color: #f3e5f5;
+    border-left-color: #9c27b0;
+    color: #4a148c;
+    
+    &::before {
+      content: "📝 ";
+      margin-right: 0.5rem;
+      font-weight: bold;
+    }
+  }
+}
+
+// Dark theme variables
+:root {
+  --bg-color: #ffffff;
+  --text-color: #4a3427;
+  --link-color: #4a3427;
+  --border-color: #e5d6cc;
+  --highlight-color: #d4c3b7;
+  --box-bg: #e5d6cc;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --link-color: #81c784;
+  --border-color: #333333;
+  --highlight-color: #2d2d2d;
+  --box-bg: #2d2d2d;
+}
+
+// Apply theme variables
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+// Dark theme callout styling
+[data-theme="dark"] .callout {
+  &.info {
+    background-color: #1e3a5f;
+    border-left-color: #64b5f6;
+    color: #e3f2fd;
+  }
+  
+  &.warning {
+    background-color: #4e342e;
+    border-left-color: #ffb74d;
+    color: #ffecb3;
+  }
+  
+  &.note {
+    background-color: #4a148c;
+    border-left-color: #ce93d8;
+    color: #f3e5f5;
+  }
+}
+
 body {
   box-sizing: content-box;
   font-family: $font-family;
