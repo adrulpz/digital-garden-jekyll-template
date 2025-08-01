@@ -7,11 +7,8 @@ This post walks through how I fixed that: first by customizing my terminal to sh
 
 ## Step 1: I Updated `.bashrc` to Show the Git Branch in My Prompt
 
-
 > [!info] **What is `.bashrc`?**
 > The `.bashrc` file is a user-level configuration script executed whenever a new interactive Bash terminal session begins. It is typically used to customize the shell environment, define aliases, and adjust the command prompt.
-
->The `.bashrc` file is a user-level configuration script executed whenever a new interactive Bash terminal session begins. It is typically used to customize the shell environment, define aliases, and adjust the command prompt.
 
 I opened the `.bashrc` file using:
 

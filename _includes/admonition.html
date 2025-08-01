@@ -1,0 +1,20 @@
+{% assign type = include.type | default: 'info' %}
+{% assign title = include.title | default: '' %}
+{% assign content = include.content | default: '' %}
+
+<div class="admonition {{ type }}">
+  {% case type %}
+    {% when 'info' or 'note' %}
+      <strong>ℹ️ Info:</strong>
+    {% when 'tip' %}
+      <strong>💡 Tip:</strong>
+    {% when 'warning' %}
+      <strong>⚠️ Warning:</strong>
+    {% when 'error' %}
+      <strong>❌ Error:</strong>
+    {% else %}
+      <strong>ℹ️ Info:</strong>
+  {% endcase %}
+  {% if title %}{{ title }}{% endif %}
+  {% if content %}{{ content }}{% endif %}
+</div> 

@@ -19,6 +19,7 @@
   border-radius: 10px;
   max-width: 1200px;
   margin: 0 auto;
+  transition: background-color 0.3s ease;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -30,6 +31,11 @@
     border-radius: 0;
     box-sizing: border-box;
   }
+}
+
+// Dark mode override
+.theme-dark .about-container {
+  background-color: var(--box-background);
 }
 
 .left-column {
@@ -76,7 +82,7 @@
 .name {
   font-size: 2.8em;
   margin: 20px 0 10px 0;
-  color: #4a3427;
+  color: var(--primary-color);
   font-family: 'Marcellus', serif;
   text-align: center;
   width: 100%;
@@ -90,7 +96,7 @@
 .pronouns {
   font-size: 1.4em;
   margin: 0 0 10px 0;
-  color: #4a3427;
+  color: var(--primary-color);
 
   @media (max-width: 768px) {
     font-size: 1.2em;
@@ -100,7 +106,7 @@
 
 .title {
   font-size: 1.8em;
-  color: #4a3427;
+  color: var(--primary-color);
   margin-top: 0;
   margin-bottom: 20px;
 
@@ -112,7 +118,7 @@
 
 .about-heading {
   font-size: 3.2em;
-  color: #4a3427;
+  color: var(--primary-color);
   font-family: 'Marcellus', serif;
   margin-bottom: 30px;
   margin-top: 0;
@@ -125,7 +131,7 @@
 }
 
 .about-text {
-  color: #4a3427;
+  color: var(--text-color);
   font-size: 1.1em;
   line-height: 1.8;
   margin-bottom: 20px;
@@ -147,8 +153,8 @@
 
 .email-button {
   display: inline-block;
-  background-color: #4a3427;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--background-color);
   padding: 15px 40px;
   text-decoration: none;
   border-radius: 5px;
@@ -159,6 +165,7 @@
   width: 100%;
   text-align: center;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
 
 .social-section {
@@ -172,7 +179,7 @@
   }
 
   p {
-    color: #4a3427;
+    color: var(--text-color);
     margin-bottom: 25px;
     font-size: 1.2em;
     font-family: 'Marcellus', serif;
@@ -199,7 +206,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  color: #4a3427;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 1.1em;
   font-family: 'Marcellus', serif;

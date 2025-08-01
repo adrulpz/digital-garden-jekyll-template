@@ -2,8 +2,6 @@
   <meta charset="UTF-8">
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl }}">
 
-
-
   <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,4 +46,87 @@
       {{ page.title }} &mdash; {{ site.title }}
     {% endif %}
   </title>
+
+  <script>
+    // Theme switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      
+      if (!themeToggle || !themeIcon) {
+        console.error('Theme toggle elements not found');
+        return;
+      }
+      
+      // Check for saved theme preference or default to system preference
+      const getTheme = () => {
+        const saved = localStorage.getItem('theme');
+        if (saved) {
+          return saved;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      
+      // Disable tooltips in dark mode
+      const disableTooltips = () => {
+        const elements = document.querySelectorAll('[title], [alt]');
+        elements.forEach(el => {
+          if (el.hasAttribute('title')) {
+            el.setAttribute('data-original-title', el.getAttribute('title'));
+            el.removeAttribute('title');
+          }
+          if (el.hasAttribute('alt')) {
+            el.setAttribute('data-original-alt', el.getAttribute('alt'));
+            el.removeAttribute('alt');
+          }
+        });
+      };
+      
+      // Enable tooltips in light mode
+      const enableTooltips = () => {
+        const elements = document.querySelectorAll('[data-original-title], [data-original-alt]');
+        elements.forEach(el => {
+          if (el.hasAttribute('data-original-title')) {
+            el.setAttribute('title', el.getAttribute('data-original-title'));
+            el.removeAttribute('data-original-title');
+          }
+          if (el.hasAttribute('data-original-alt')) {
+            el.setAttribute('alt', el.getAttribute('data-original-alt'));
+            el.removeAttribute('data-original-alt');
+          }
+        });
+      };
+      
+      // Apply theme
+      const setTheme = (theme) => {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('theme-dark');
+          themeIcon.textContent = '☀️';
+          disableTooltips();
+        } else {
+          document.documentElement.classList.remove('theme-dark');
+          themeIcon.textContent = '🌙';
+          enableTooltips();
+        }
+        localStorage.setItem('theme', theme);
+      };
+      
+      // Initialize theme
+      setTheme(getTheme());
+      
+      // Toggle theme
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = getTheme();
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+      });
+      
+      // Listen for system preference changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          setTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+    });
+  </script>
 </head>

@@ -8,7 +8,7 @@ permalink: /
 # Welcome!🌱
 
 <div style="display: flex; gap: 10px; align-items: flex-start; padding-left: 0;">
-  <img src="/assets/images/growing-flower.gif" alt="Growing Flower" style="width: 150px; height: auto; margin-top: 20px; margin-right: 10px;">
+  <img src="/assets/images/growing-flower.gif" style="width: 150px; height: auto; margin-top: 20px; margin-right: 10px;">
   
   <p style="padding: 3em 1em; background: #e5d6cc; border-radius: 4px; flex: 1;">
     This is where I document my research, technical explorations, and evolving ideas. Unlike a traditional blog, this space is always growing—some notes are well-developed, while others are just starting to take shape.

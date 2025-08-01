@@ -1,12 +1,61 @@
+// CSS Variables for theming
+:root {
+  // Light theme (default)
+  --background-color: #e5d6cc;
+  --text-color: #4a3427;
+  --primary-color: #4a3427;
+  --border-color: #beab9c;
+  --box-background: #e5d6cc;
+  --link-color: #6b4f3f;
+  --link-hover-color: #8b6f5f;
+  --code-background: #f5f5f5;
+  --code-text: #333;
+  --admonition-info-bg: #e6f3ff;
+  --admonition-info-border: #0066cc;
+  --admonition-tip-bg: #e6ffe6;
+  --admonition-tip-border: #28a745;
+  --admonition-warning-bg: #fff8e6;
+  --admonition-warning-border: #ffc107;
+  --admonition-error-bg: #ffe6e6;
+  --admonition-error-border: #dc3545;
+  --archive-column-bg: #beab9c;
+  --archive-item-bg: #e5d6cc;
+}
+
+// Dark theme
+.theme-dark {
+  --background-color: #373d3b;
+  --text-color: #ffffff;
+  --primary-color: #ffffff;
+  --border-color: #555;
+  --box-background: #2a2f2d;
+  --link-color: #ffffff;
+  --link-hover-color: #0097b2;
+  --code-background: #000000;
+  --code-text: #ffffff;
+  --admonition-info-bg: #1a3a4a;
+  --admonition-info-border: #0097b2;
+  --admonition-tip-bg: #1a4a1a;
+  --admonition-tip-border: #28a745;
+  --admonition-warning-bg: #4a3a1a;
+  --admonition-warning-border: #ffc107;
+  --admonition-error-bg: #4a1a1a;
+  --admonition-error-border: #dc3545;
+  --archive-column-bg: #2a2f2d;
+  --archive-item-bg: #373d3b;
+}
+
+// Import Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 
 @import "about";
 
-$color-primary: #4a3427;
-$color-text: #4a3427;
-$color-subtext: #4a3427;
-$color-border: #e5d6cc;
-$color-box-background: #e5d6cc;
+// Update existing variables to use CSS variables
+$color-primary: var(--primary-color);
+$color-text: var(--text-color);
+$color-subtext: var(--text-color);
+$color-border: var(--border-color);
+$color-box-background: var(--box-background);
 $border-radius: 4px;
 $font-family: 'Marcellus', serif;
 
@@ -17,10 +66,11 @@ body {
   line-height: 1.7;
   padding: 4vh 6vw;
   overflow-x: hidden;
-  color: $color-text;
+  color: var(--text-color);
   font-size: 1rem;
   max-width: 63em;
-  background-color: #e5d6cc;
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (min-width: 820px) {
     font-size: 1.2rem;
@@ -36,7 +86,8 @@ time {
 footer {
   margin: 2em 0;
   font-size: 0.8em;
-  color: mix($color-text, white, 80%);
+  color: var(--text-color);
+  opacity: 0.8;
   padding-top: 1em;
 }
 
@@ -82,11 +133,63 @@ h6 {
 }
 
 // Base link styles with stronger overrides
-a,
-a:link,
-a:visited,
+a {
+  transition: color 300ms ease;
+  padding: 0 0.1em;
+  text-decoration: none;
+  color: var(--link-color);
+
+  &:link,
+  &:visited,
+  &:active {
+    color: var(--link-color);
+  }
+
+  &:hover {
+    color: var(--link-hover-color) !important;
+    text-decoration: none;
+  }
+  
+  &:after {
+    position: relative;
+    top: -0.5em;
+    font-size: 0.7em;
+    content: "↗";
+    color: var(--link-color);
+  }
+  
+  &.internal-link:after,
+  &.footnote:after,
+  &.reversefootnote:after {
+    content: "";
+  }
+}
+
+// Override any external link styles
+a[href^="http"],
+a[href^="https"],
+a[href^="mailto"] {
+  color: var(--link-color) !important;
+  
+  &:hover {
+    color: var(--link-hover-color) !important;
+    background: transparent !important;
+  }
+
+  &:visited {
+    color: var(--link-color) !important;
+  }
+}
+
+// Remove any remaining background styles from all links
 a:hover,
-a:active,
+a:focus,
+a:active {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+// Ensure no background boxes on any links
 .internal-link,
 .external-link,
 [href],
@@ -95,58 +198,14 @@ a:active,
 [href^="mailto"],
 .footnote,
 .reversefootnote {
-  color: $color-primary !important;
-  text-decoration: none !important;
-  border-bottom: 1px solid $color-border !important;
-  transition: background 300ms;
-  padding: 0 0.1em;
   background: transparent !important;
-
-  &:hover {
-    color: #4a3427 !important;
-    background: #d4c3b7 !important;
-    text-decoration: none !important;
-    border-bottom: 1px solid $color-border !important;
-  }
-
-  &:after {
-    position: relative;
-    top: -0.5em;
-    font-size: 0.7em;
-    content: "↗";
-    color: #4a3427 !important;
-  }
-}
-
-// Remove arrow from specific links
-a.internal-link:after,
-a.footnote:after,
-a.reversefootnote:after,
-.internal-link:after {
-  content: "" !important;
-  }
-
-// Override any external link styles
-a[href^="http"],
-a[href^="https"],
-a[href^="mailto"] {
-  color: $color-primary !important;
-  
-  &:hover {
-    color: #4a3427 !important;
-    background: #d4c3b7 !important;
-  }
-
-  &:visited {
-    color: $color-primary !important;
-  }
+  box-shadow: none !important;
 }
 
 // Focus state
 *:focus {
-  background: #d4c3b7 !important;
-  color: #4a3427 !important;
-  outline: none !important;
+  color: var(--link-hover-color) !important;
+  outline: none;
 }
 
 // Invalid link styles
@@ -204,7 +263,7 @@ code {
 
 .archive-title {
   font-size: 2.5em;
-  color: $color-primary;
+  color: var(--primary-color);
   margin-bottom: 1.5em;
   text-align: center;
   font-family: $font-family;
@@ -222,9 +281,10 @@ code {
 
 .archive-column {
   flex: 1;
-  background: #beab9c;
+  background: var(--archive-column-bg);
   padding: 20px;
   border-radius: 10px;
+  transition: background-color 0.3s ease;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -233,10 +293,10 @@ code {
 
 .column-title {
   font-size: 1.8em;
-  color: $color-primary;
+  color: var(--primary-color);
   margin-bottom: 1em;
   padding-bottom: 0.5em;
-  border-bottom: 2px solid $color-primary;
+  border-bottom: 2px solid var(--primary-color);
   text-align: center;
 }
 
@@ -252,25 +312,20 @@ code {
   margin-bottom: 0.8em;
   padding: 0.8em;
   transition: background-color 0.2s ease;
-  background: #e5d6cc;
+  background: var(--archive-item-bg);
   border-radius: 6px;
-
-  &:hover {
-    background-color: #d4c3b7;
-    transform: translateX(5px);
-  }
 }
 
 .archive-date {
   min-width: 6.5em;
-  color: $color-primary;
+  color: var(--text-color);
   font-family: $font-family;
   margin-right: 1em;
   font-size: 0.9em;
 }
 
 .archive-link {
-  color: $color-primary;
+  color: var(--text-color);
   text-decoration: none;
   font-family: $font-family;
   flex-grow: 1;
@@ -278,12 +333,367 @@ code {
 
   &:hover {
     text-decoration: none;
-    color: $color-primary !important;
+    color: var(--text-color) !important;
     border-bottom: none !important;
-}
+  }
 
   &:after {
     content: "" !important;
   }
 }
 
+// CSS-only admonition styles
+blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-left: 4px solid $color-border;
+  background: $color-box-background;
+  border-radius: 4px;
+  position: relative;
+
+  // Info admonition - matches [!info] syntax
+  &:has(p:first-child:contains("[!info]")),
+  &:has(p:first-child:contains("[!note]")) {
+    border-left-color: #0066cc;
+    background: #e6f3ff;
+    
+    &::before {
+      content: "ℹ️ ";
+      font-weight: bold;
+      margin-right: 0.5em;
+    }
+  }
+
+  // Tip admonition
+  &:has(p:first-child:contains("[!tip]")) {
+    border-left-color: #28a745;
+    background: #e6ffe6;
+    
+    &::before {
+      content: "💡 ";
+      font-weight: bold;
+      margin-right: 0.5em;
+    }
+  }
+
+  // Warning admonition
+  &:has(p:first-child:contains("[!warning]")) {
+    border-left-color: #ffc107;
+    background: #fff8e6;
+    
+    &::before {
+      content: "⚠️ ";
+      font-weight: bold;
+      margin-right: 0.5em;
+    }
+  }
+
+  // Error admonition
+  &:has(p:first-child:contains("[!error]")) {
+    border-left-color: #dc3545;
+    background: #ffe6e6;
+    
+    &::before {
+      content: "❌ ";
+      font-weight: bold;
+      margin-right: 0.5em;
+    }
+  }
+}
+
+// Alternative approach using attribute selectors
+blockquote[data-admonition="info"],
+blockquote[data-admonition="note"] {
+  border-left-color: #0066cc !important;
+  background: #e6f3ff !important;
+  
+  &::before {
+    content: "ℹ️ ";
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+}
+
+blockquote[data-admonition="tip"] {
+  border-left-color: #28a745 !important;
+  background: #e6ffe6 !important;
+  
+  &::before {
+    content: "💡 ";
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+}
+
+blockquote[data-admonition="warning"] {
+  border-left-color: #ffc107 !important;
+  background: #fff8e6 !important;
+  
+  &::before {
+    content: "⚠️ ";
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+}
+
+blockquote[data-admonition="error"] {
+  border-left-color: #dc3545 !important;
+  background: #ffe6e6 !important;
+  
+  &::before {
+    content: "❌ ";
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+}
+
+// HTML-based admonition classes
+.admonition {
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+  border-radius: 4px;
+  border-left: 4px solid;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  &.info,
+  &.note {
+    border-left-color: var(--admonition-info-border);
+    background: var(--admonition-info-bg);
+  }
+
+  &.tip {
+    border-left-color: var(--admonition-tip-border);
+    background: var(--admonition-tip-bg);
+  }
+
+  &.warning {
+    border-left-color: var(--admonition-warning-border);
+    background: var(--admonition-warning-bg);
+  }
+
+  &.error {
+    border-left-color: var(--admonition-error-border);
+    background: var(--admonition-error-bg);
+  }
+}
+
+// Code blocks - more specific overrides
+pre, code {
+  background-color: var(--code-background) !important;
+  color: var(--code-text) !important;
+  border-radius: $border-radius;
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+pre {
+  padding: 1em;
+  overflow-x: auto;
+}
+
+// Override Rouge syntax highlighting
+.highlight {
+  background-color: var(--code-background) !important;
+  color: var(--code-text) !important;
+  
+  pre {
+    background-color: var(--code-background) !important;
+    color: var(--code-text) !important;
+  }
+  
+  code {
+    background-color: var(--code-background) !important;
+    color: var(--code-text) !important;
+  }
+}
+
+// Dark mode syntax highlighting colors
+.theme-dark .highlight {
+  .hll { background-color: #2d3748; }
+  .c { color: #a0aec0; } // Comments
+  .err { color: #f56565; } // Error
+  .k { color: #9f7aea; } // Keyword
+  .o { color: #e2e8f0; } // Operator
+  .ch { color: #a0aec0; } // Comment.Hashbang
+  .cm { color: #a0aec0; } // Comment.Multiline
+  .cp { color: #a0aec0; } // Comment.Preproc
+  .cpf { color: #a0aec0; } // Comment.PreprocFile
+  .c1 { color: #a0aec0; } // Comment.Single
+  .cs { color: #a0aec0; } // Comment.Special
+  .gd { color: #f56565; } // Generic.Deleted
+  .ge { color: #e2e8f0; } // Generic.Emph
+  .gr { color: #f56565; } // Generic.Error
+  .gh { color: #a0aec0; } // Generic.Heading
+  .gi { color: #68d391; } // Generic.Inserted
+  .go { color: #a0aec0; } // Generic.Output
+  .gp { color: #a0aec0; } // Generic.Prompt
+  .gs { color: #e2e8f0; } // Generic.Strong
+  .gu { color: #a0aec0; } // Generic.Subheading
+  .gt { color: #f56565; } // Generic.Traceback
+  .kc { color: #9f7aea; } // Keyword.Constant
+  .kd { color: #9f7aea; } // Keyword.Declaration
+  .kn { color: #9f7aea; } // Keyword.Namespace
+  .kp { color: #9f7aea; } // Keyword.Pseudo
+  .kr { color: #9f7aea; } // Keyword.Reserved
+  .kt { color: #9f7aea; } // Keyword.Type
+  .m { color: #f6ad55; } // Literal.Number
+  .s { color: #68d391; } // Literal.String
+  .na { color: #63b3ed; } // Name.Attribute
+  .nb { color: #63b3ed; } // Name.Builtin
+  .nc { color: #63b3ed; } // Name.Class
+  .no { color: #63b3ed; } // Name.Constant
+  .nd { color: #63b3ed; } // Name.Decorator
+  .ni { color: #63b3ed; } // Name.Entity
+  .ne { color: #63b3ed; } // Name.Exception
+  .nf { color: #63b3ed; } // Name.Function
+  .nl { color: #63b3ed; } // Name.Label
+  .nn { color: #63b3ed; } // Name.Namespace
+  .nx { color: #63b3ed; } // Name.Other
+  .py { color: #63b3ed; } // Name.Property
+  .nt { color: #63b3ed; } // Name.Tag
+  .nv { color: #63b3ed; } // Name.Variable
+  .ow { color: #9f7aea; } // Operator.Word
+  .w { color: #e2e8f0; } // Text.Whitespace
+  .mb { color: #f6ad55; } // Literal.Number.Bin
+  .mf { color: #f6ad55; } // Literal.Number.Float
+  .mh { color: #f6ad55; } // Literal.Number.Hex
+  .mi { color: #f6ad55; } // Literal.Number.Integer
+  .mo { color: #f6ad55; } // Literal.Number.Oct
+  .sa { color: #68d391; } // Literal.String.Affix
+  .sb { color: #68d391; } // Literal.String.Backtick
+  .sc { color: #68d391; } // Literal.String.Char
+  .dl { color: #68d391; } // Literal.String.Delimiter
+  .sd { color: #68d391; } // Literal.String.Doc
+  .s2 { color: #68d391; } // Literal.String.Double
+  .se { color: #68d391; } // Literal.String.Escape
+  .sh { color: #68d391; } // Literal.String.Heredoc
+  .si { color: #68d391; } // Literal.String.Interpol
+  .sx { color: #68d391; } // Literal.String.Other
+  .sr { color: #68d391; } // Literal.String.Regex
+  .s1 { color: #68d391; } // Literal.String.Single
+  .ss { color: #68d391; } // Literal.String.Symbol
+  .bp { color: #63b3ed; } // Name.Builtin.Pseudo
+  .fm { color: #63b3ed; } // Name.Function.Magic
+  .vc { color: #63b3ed; } // Name.Variable.Class
+  .vg { color: #63b3ed; } // Name.Variable.Global
+  .vi { color: #63b3ed; } // Name.Variable.Instance
+  .vm { color: #63b3ed; } // Name.Variable.Magic
+  .il { color: #f6ad55; } // Literal.Number.Integer.Long
+}
+
+// Home page content blocks - more specific selectors
+div[style*="display: flex"] p[style*="background: #e5d6cc"],
+div[style*="display: flex"] p[style*="background: #beab9c"],
+p[style*="background: #e5d6cc"],
+p[style*="background: #beab9c"] {
+  background-color: #beab9c !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Ensure all styled paragraphs use theme variables
+p[style*="background"] {
+  background-color: #beab9c !important;
+  color: var(--text-color) !important;
+}
+
+// Dark mode override for index page containers
+.theme-dark div[style*="display: flex"] p[style*="background"],
+.theme-dark p[style*="background"] {
+  background-color: var(--box-background) !important;
+  color: var(--text-color) !important;
+}
+
+// Archive page fixes
+.archive-columns {
+  display: flex;
+  gap: 40px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+.archive-column {
+  flex: 1;
+  background: var(--box-background);
+  padding: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+// Link preview tooltips - more comprehensive approach
+[data-tooltip],
+[title] {
+  position: relative;
+}
+
+// Override browser tooltips with CSS custom properties
+.theme-dark {
+  --tooltip-bg: var(--box-background);
+  --tooltip-color: var(--text-color);
+  --tooltip-border: var(--border-color);
+}
+
+:root {
+  --tooltip-bg: #f5f5f5;
+  --tooltip-color: #333;
+  --tooltip-border: #ddd;
+}
+
+// Target all possible tooltip selectors
+.theme-dark *[title]:hover::before,
+.theme-dark *[title]:hover::after,
+.theme-dark *[data-tooltip]:hover::before,
+.theme-dark *[data-tooltip]:hover::after,
+.theme-dark *[aria-label]:hover::before,
+.theme-dark *[aria-label]:hover::after {
+  background-color: var(--tooltip-bg) !important;
+  color: var(--tooltip-color) !important;
+  border: 1px solid var(--tooltip-border) !important;
+}
+
+// Light mode tooltip styles
+*[title]:hover::before,
+*[title]:hover::after,
+*[data-tooltip]:hover::before,
+*[data-tooltip]:hover::after,
+*[aria-label]:hover::before,
+*[aria-label]:hover::after {
+  background-color: var(--tooltip-bg) !important;
+  color: var(--tooltip-color) !important;
+  border: 1px solid var(--tooltip-border) !important;
+}
+
+// Additional specificity for browser tooltips
+.theme-dark ::-webkit-tooltip,
+.theme-dark ::-moz-tooltip {
+  background-color: var(--tooltip-bg) !important;
+  color: var(--tooltip-color) !important;
+}
+
+// Make tooltip text blue for better visibility
+.theme-dark *[title] {
+  color: #0097b2 !important;
+}
+
+.theme-dark *[title]:hover {
+  color: #0097b2 !important;
+}
+
+// Override any tooltip text color
+.theme-dark *::before,
+.theme-dark *::after {
+  color: #0097b2 !important;
+}
+
+/* Archive columns — light mode only */
+html:not(.theme-dark) .archive-container .archive-column {
+  background-color: var(--archive-column-bg) !important;
+}
