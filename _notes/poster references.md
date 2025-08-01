@@ -5,7 +5,7 @@ category: research
 ## Workshop: Soft Robotics for Space Applications 
 [Link to the Paper](https://softroboticsforspace.eu/images/paper-submissions/Lopez-ICRA2025-Soft-Robotics-for-Space-Applications.pdf)
 
-<img src="{{ site.baseurl }}/assets/poster.jpg" alt="Poster" style="max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+<img src="{{ site.baseurl }}/assets/poster.jpg" alt="Poster">
 
 
 

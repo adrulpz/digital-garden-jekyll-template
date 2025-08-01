@@ -3,32 +3,6 @@
   {% include head.html %}
   <head>
     <script>
-      // Theme toggle functionality
-      function toggleTheme() {
-        const html = document.documentElement;
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        // Update button text
-        const button = document.getElementById('theme-toggle');
-        button.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-      }
-      
-      // Set initial theme
-      document.addEventListener('DOMContentLoaded', function() {
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        
-        const button = document.getElementById('theme-toggle');
-        if (button) {
-          button.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-        }
-      });
-    </script>
-    <script>
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']],
@@ -40,32 +14,12 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
-    <div class="theme-toggle">
-      <button id="theme-toggle" onclick="toggleTheme()" style="
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        background: var(--box-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-      ">🌙</button>
-    </div>
-    
     <nav>{% include nav.html %}</nav>
     <div class="wrapper">
       <main>{{ content }}</main>
       <footer>{% include footer.html %}</footer>
     </div>
-    
+
     {% include link-previews.html wrapperQuerySelector="content" %}
   </body>
 </html>
