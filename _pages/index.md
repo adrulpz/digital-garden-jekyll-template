@@ -23,7 +23,7 @@ permalink: /
   {% assign recent_notes = site.notes | sort: "last_modified_at_timestamp" | reverse %}
   {% for note in recent_notes limit: 5 %}
     <li>
-      {{ note.last_modified_at | date: "%Y-%m-%d" }} — <a class="internal-link" href="{{ note.url }}">{% if note.title %}{{ note.title }}{% else %}{{ note.path | split: "/" | last | replace: ".md", "" }}{% endif %}</a>
+      {{ note.last_modified_at | date: "%Y-%m-%d" }} — <a class="internal-link" href="{{ note.url }}">{% if note.title %}{{ note.title }}{% else %}{{ note.path | split: "/" | last | replace: ".md", "" }}{% endif %}</a>{% if note.word_count %} <span class="word-count">({{ note.word_count }} words)</span>{% endif %}
     </li>
   {% endfor %}
 </ul>

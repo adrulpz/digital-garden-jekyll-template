@@ -16,7 +16,7 @@ permalink: /archive/
             {% for note in research_notes %}
                 <li class="archive-item">
                     <span class="archive-date">{{ note.last_modified_at | date: "%Y-%m-%d" }}</span>
-                    <a href="{{ note.url }}" class="archive-link">{{ note.title }}</a>
+                    <a href="{{ note.url }}" class="archive-link">{{ note.title }}</a>{% if note.word_count %} <span class="word-count">({{ note.word_count }} words)</span>{% endif %}
                 </li>
             {% endfor %}
             </ul>
@@ -30,7 +30,7 @@ permalink: /archive/
             {% for note in other_notes %}
                 <li class="archive-item">
                     <span class="archive-date">{{ note.last_modified_at | date: "%Y-%m-%d" }}</span>
-                    <a href="{{ note.url }}" class="archive-link">{{ note.title }}</a>
+                    <a href="{{ note.url }}" class="archive-link">{{ note.title }}</a>{% if note.word_count %} <span class="word-count">({{ note.word_count }} words)</span>{% endif %}
                 </li>
             {% endfor %}
             </ul>
