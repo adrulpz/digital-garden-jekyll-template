@@ -1,8 +1,11 @@
 ---
-title: 
+title: Inflatables MeshFEM Simulation Library
 category: research
 ---
-# *Inflatables* Simulation Library  
+These are my technical notes on how the MeshFEM simulation pipeline for inflatables works, based on my understanding of the repository at [MeshFEM Inflatables](https://github.com/MeshFEM/Inflatables). They include details on how mesh inputs are defined, how regions are tagged and mapped, and how the physical simulation and output stages are handled.
+ 
+ > [!warning] Work in progress  
+> These notes are based on my current understanding from experimenting with the MeshFEM Inflatables simulator. I’ve tried to be accurate, but things might be missing or misunderstood, and I’ll likely update this as I keep testing and learning.
 
 
 ## 1. Simulation Pipeline Overview
@@ -13,7 +16,7 @@ At a high level, the workflow proceeds as follows:
 
 	  - **Fused points** identify 2D coordinates where the top and bottom layers of the sheet are to be permanently bonded. These regions remain non-inflatable and function as walls or seams.
 
-	  - **Hole points** (optional) identify areas to be excluded from inflation and meshing entirely, often corresponding to apertures.  
+	  - **Hole points** (optional) identify internal locations where meshing and inflation should be suppressed, typically representing apertures or excluded areas.
 	   
 3. **Meshing**: The library performs constrained 2D triangulation using the boundary edges, generating a triangle mesh suitable for subsequent finite element simulation. Fused and hole regions are respected during this process by applying region-specific tagging and exclusion rules. 
 
@@ -47,9 +50,9 @@ All input geometry is assumed to lie in the XY plane, with Z initialized to zero
 
 ## 3. Sheet Meshing and Region Mapping  
 
-The meshing routine `sheet_meshing.forward_design_mesh()` is the central function that converts the input curves into a simulation-ready mesh. It internally builds a signed distance field, resolves connectivity, and tags mesh triangles as belonging to inflatable (tube), fused (wall), or excluded (hole) regions.
+The meshing routine `sheet_meshing.forward_design_mesh()` is the central function that converts the input curves into a simulation-ready mesh. It internally builds a signed distance field, resolves connectivity, and tags mesh triangles as belonging to inflatable areas, fused walls, or hole (excluded) regions.
 
-A critical design feature is the treatment of **fused seams** as regions with zero inflation gap—these are not physically modeled as inflated, and act as internal constraints or stiffeners.  
+A critical modelling feature is the treatment of **fused points** as locations with zero vertical displacement during inflation — effectively constraining those areas and preventing them from expanding like the surrounding membrane.
 
 ## 4. Physical Simulation Model  
 
@@ -87,7 +90,7 @@ Camera positioning can be precisely controlled using `setCameraParams((position,
 
 - **No volumetric modeling**: All simulations are performed on 2.5D sheets (surface inflation). Volume-preserving inflatables or fully 3D forms are outside the scope of this library.
 
-- **Input validation is minimal**: Dangling vertices or malformed edge topologies can lead to meshing or simulation errors. Users are expected to preprocess and verify input geometry.  
+- **Input validation is minimal**: Dangling vertices or malformed edge topologies can lead to meshing or simulation errors. Users are expected to pre-process and verify input geometry.  
 
 
 
