@@ -9,6 +9,9 @@ layout: default
       Last updated on {{ page.last_modified_at | date: "%B %-d, %Y" }}
       {% endif %}
     </time>
+    {% if page.word_count %}
+    <span class="word-count">{{ page.word_count }} words</span>
+    {% endif %}
   </div>
 
   <div id="notes-entry-container">
