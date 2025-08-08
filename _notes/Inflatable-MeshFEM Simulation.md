@@ -153,14 +153,143 @@ Because the triangulated mesh is generated internally from the input curves, the
 
 That’s what led me to increase the number of vertices in the input geometry. By adding more points along the rectangle’s edges and interior, I improved the chances that the triangulated mesh would include nodes close enough to serve as **reliable tracking anchors**.
 
-Initially, I tried selecting mesh vertices by comparing the simulation mesh (`m.vertices()`) to a set of fixed 3D target coordinates using simple distance matching. However, this approach didn’t yield reliable results. To solve this, I switched to a more robust method using the rest wall vertex positions and a KDTree for nearest-neighbour search.
+To figure out how to track motion, I first needed to choose which points to follow and how to locate them reliably in the mesh.
+
+My initial idea was to track points along the centreline of the inflatable — for example, `[0.05, 0.00, 0.0], [0.05, 0.20, 0.0]`, and `[0.05, 0.40, 0.0]`. This was before scaling the model to 10×20 dimensions, but even then the results were inconsistent. When I printed the tracked coordinates, I noticed they had shifted — possibly due to remeshing or triangulation differences between runs.
+
+Technically, I started by locating these points in the mesh using direct distance matching against the raw vertex list (`m.vertices()`), but that wasn’t robust. So I switched to a more reliable method: using `isheet.restWallVertexPositions()` and a KDTree to find the nearest mesh vertex to each target coordinate. This made the tracking far more consistent.
+
+To simplify, I switched to tracking along the **left edge** instead: `[0.00, 0.00, 0.0]`, `[0.00, 10, 0.0]`, and `[0.00, 20, 0.0]`. My reasoning was that these would be easier to identify and match across frames, and that tracking along the edge would allow me to observe the bending angle more clearly — since the deformation would occur upward or downward, it would be visible from a lateral view.
+
+At the same time, I began thinking about fixing one of the links, as in physical setups, the base of the inflatable often rests on a surface, such as a table. In the simulation, there’s no limiting surface, so I tried pinning points along the X-axis (where Y = 0), then by mistake on the left edge (where X=0),which is what the following video shows  or try to create an area instead of lined point with three points like `[0, 0], [0, 10], [5, 10]`.
+
+<div style="text-align: center;">
+  <video controls width="600">
+    <source src="assets/inflation_mp.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <p><em>Torsion effect caused when pinning was applied along the left edge (X = 0). </em></p>
+</div>
+
+<div style="text-align: center;">
+  <img src="assets/displacement-t.jpg" alt="Torsion plot from left edge pinning" width="600">
+  <p><em>Figure 5: Plot showing the tracked positions when pinning was applied along X = 0, for the following mesh vertices: vertex 0 = (0, 0), vertex 496 = (0, 10), and vertex 397 = (0, 20). These correspond to the base, hinge, and tip along the left edge of the inflatable.</em></p>
+</div>
+
+But all of these introduced unexpected **torsion** during inflation — a twisting behaviour that I hadn’t observed in physical tests. It’s worth noting that pinning in the simulator means constraining points in 3D space, which is different from simply resting an object on a surface under gravity.
+
+This led me to reconsider my tracking approach. By focusing on edge points — especially on the left side — I could reduce the influence of pinning artefacts and maintain more consistent tracking across configurations.
+
+As I revisited the various changes I’d made, I noticed something important: **tracking was more stable when the tracked points were also included in the fused point list**. Even with a minimal number of user-defined vertices, the meshing process reliably preserved these locations — making them easier to identify and track across frames.
+
+Interestingly, although it's assumed that increasing the density of fused points in a region should restrict inflation, the diamond shape didn’t appear to change visibly when I added fused points at the tracking locations. So I kept only those specific fused points — placed on the left edge `(0, 0)`, `(0, 10)`, `(0, 20)`, the right edge `(10, 0)`, `(10, 10)`, `(10, 20)`, and a single centre point `(5, 10)` at the hinge. These correspond to the base and tip of the inflatable, and the symmetric placement helped avoid introducing directional bias in the deformation.
+
+With the pinned points removed, the simulation no longer exhibited unwanted torsion, and the results were cleaner overall.
+
+And finally — what I probably should have done from the beginning — I used the tracked points to compute the bending angle directly using the cosine rule, instead of just plotting their displacement over time.
+
+### Table: Tracked vs. Geometric Inputs
+
+| $\ a$  (bottom triangle height) | $\ b$ (top triangle height) | Tracked Angle (simulation) | θ Calculated ($\ w=3$ ) |
+| ------------------------------- | --------------------------- | -------------------------- | ----------------------- |
+| 2                               | 2                           | 44.09°                     | 97.18°                  |
+| 3                               | 2                           | 50.65°                     | 70.53°                  |
+| 4                               | 2                           | 100.96°                    | 46.57°                  |
+
+> [!info] Note: 
+> Here, $\ w=3$ is taken as the seam width, based on the base length of the diamond, which remains constant across simulations.
 
 ---
-In the next part, I’ll briefly explain how I selected the specific points to track, the role of the pinned point in the simulation, and how I eventually computed the bending angles based on the tracked motion.
+
+Below, I’ll include the video and plots for one of the examples (e.g. $\ a=2, b=2$) to illustrate the measurement and resulting deformation.
+
+<figure style="text-align: center;">
+  <video width="600" controls>
+    <source src="assets/inflation_t5.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <figcaption>
+    <em>Simulation of the inflatable structure during inflation. Lateral view .</em>
+  </figcaption>
+</figure>
+
+<figure style="text-align: center;">
+  <img src="assets/angle_plot-t5.jpg" alt="Angle over time" width="600">
+  <figcaption>
+    <em>Figure 6: Bending angle over simulation steps.</em>
+  </figcaption>
+</figure>
+> [!info] Note: 
+> **vertex 0 = (0, 0), vertex 12 = (0, 10), and vertex 5 = (0, 20).** 
+> These correspond to the base, hinge, and tip along the left edge of the inflatable.
+
+<figure style="text-align: center;">
+  <img src="assets/displacement-t5.jpg" alt="Displacement over time" width="600">
+  <figcaption>
+    <em>Figure 7: Displacement of the tracked points during inflation. And 3D trajectory</em>
+  </figcaption>
+</figure>
+
+<figure style="text-align: center;">
+  <img src="assets/position-t5.jpg" alt="3D position of tracked points" width="600">
+  <figcaption>
+    <em>Figure 8: Position of the tracked in each plane.</em>
+  </figcaption>
+</figure>
+
+> [!info] Note: 
+> Not totally sure how much these add beyond curiosity value, but they were a  way to check where the tracked points ended up compared to their intended targets. The 2D version flattens everything so it can be a bit misleading, while the 3D view gives a clearer sense of how far they’ve  moved in space.
+
+<figure style="text-align: center;">
+  <img src="assets/trackedvstarget-t5.jpg" alt="Final tracked points (2D)" width="600">
+  <figcaption>
+    <em>Figure 9: Final position of tracked points vs. intended target in 2D (XY plane).</em>
+  </figcaption>
+</figure>
+
+<figure style="text-align: center;">
+  <img src="assets/trackedvstarget_3d-t5.jpg" alt="Final tracked points (3D)" width="600">
+  <figcaption>
+    <em>Figure 10: Final 3D view of tracked points vs. their target locations, showing the resulting deformation in space.</em>
+  </figcaption>
+</figure>
 
 
+---
 
+### On Formula Discrepancy
 
+The bending angle formula used earlier,
 
+$$\theta = \arccos\left(\frac{a^2 + b^2 - w^2}{2ab}\right)$$
 
+assumes a specific geometric interpretation: `a` and `b` are the lengths from the hinge point (where the two triangles meet) to the seam tips, and `w` is the seam width — the inextensible distance between those seam tips.
 
+However, in some diagrams (like Figure 7 from the Inflatables paper), `a` and `b` are shown as horizontal components, implying that `w = a + b`. If we plug this into the equation:
+
+$$
+\theta = \arccos\left(\frac{a^2 + b^2 - (a + b)^2}{2ab}\right) = \arccos(-1) = 180^\circ
+$$
+
+we get a flat structure with no bending, which contradicts both the physical outcome and the aim of the formula. This highlights a key misunderstanding: if `w = a + b`, the equation will always yield 180°, meaning no bending occurs. So, for bending to happen, `w` must be **strictly less than** `a + b`.
+
+This mismatch between diagram labelling and formula assumptions likely contributes to the discrepancy between simulated angles and theoretical predictions.
+
+> [!warning] 
+> I plan to revisit the exact relation between the physical geometry, seam layout, and the angle prediction formula.
+
+---
+
+### Physical Reference: Aeromorph Hinge Behaviour
+
+The Aeromorph paper provides a physical reference, showing that as the height of the diamond increases (while width is fixed), the resulting bend becomes more pronounced.
+
+<figure style="text-align: center;">
+  <img src="assets/w-h-ratio.png" alt="Aeromorph hinge bending experiments" width="600">
+  <figcaption>
+    <em>Figure 11: Experimental results from Ou et al. (2016) showing how the bending angle increases with the diamond’s aspect ratio.  
+    </em>
+  </figcaption>
+</figure>
+
+In my case, I varied `a` while keeping `b` fixed as a way to control the triangle proportions and induce different bending angles under the law of cosines. However, based on the diagram discrepancy and physical results, I will revisit the mapping between design parameters and analytical predictions to ensure the setup reflects the intended formulation.
