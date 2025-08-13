@@ -17,9 +17,7 @@ The seam geometry and associated dimensions are shown below:
 
 
 In the Aeromorph paper, the resulting angle can be derived using the law of cosines:
-$$
-\theta = \arccos\left(\frac{a^2 + b^2 - w^2}{2ab}\right)
-$$
+$$\theta = \arccos\left(\frac{a^2 + b^2 - w^2}{2ab}\right)$$
 
 Where:
 - $\ a$ and $\ b$ are the lengths from the centre of the diamond to its left and right tips,
@@ -81,11 +79,11 @@ This section focuses on how I modified and tested different aspects of the input
 
 ### Initial Test: Flat Inflation Without Bending
 
-As a first test, I created the simplest layout to represent an inflatable arm — a rectangular sheet with three internal diamond shapes placed where joints would be. The idea was to mimic the typical structure of soft inflatable arms, which bend at specific hinge points along their length.
+As a first test, I created the simplest layout to represent an inflatable arm, a rectangular sheet with three internal diamond shapes placed where joints would be. The idea was to mimic the typical structure of soft inflatable arms, which bend at specific hinge points along their length.
 
 The input geometry included just the rectangle corners and the corner points of each diamond. I also placed one fused point at the centre of each diamond to represent a minimal seam. No hole regions were defined.
 
-When I ran the simulation, the structure inflated uniformly but remained completely flat — there was no out-of-plane bending at all. The result showed that a single central seam point wasn’t enough to induce bending.
+When I ran the simulation, the structure inflated uniformly but remained completely flat, there was no out-of-plane bending at all. The result showed that a single central seam point wasn’t enough to induce bending.
 
 <div style="text-align: center;">
 	<video controls width="600">
@@ -127,14 +125,14 @@ Additionally, this version showed better simulation stability: there were no iss
 
 ### Refining Geometry to Explore Bending Angle
 
-Next, I adjusted the dimensions of the structure so that the two outer pouches (or links) would each be square, with dimensions 10×10. This made the total sheet 10×20, creating a simplified configuration to begin testing the geometric relationship between diamond shape and bending angle.
+Next, I adjusted the dimensions of the structure so that the two outer pouches (or links) would each be square, with dimensions $10×10$. This made the total sheet $10×20$, creating a simplified configuration to begin testing the geometric relationship between diamond shape and bending angle.
 
-My goal was to explore whether modifying the shape of one triangle within the diamond would produce a bend that matched the expected outcome from the cosine rule described earlier. Although I didn’t yet get to fully asymmetric links, I expected the inflated shape to show a clear difference in bending angle. However, based on visual inspection alone, this difference wasn’t immediately obvious — which led me to start looking for a way to extract and quantify the angle without relying on perception alone.
+My goal was to explore whether modifying the shape of one triangle within the diamond would produce a bend that matched the expected outcome from the cosine rule described earlier. Although I didn’t yet get to fully asymmetric links, I expected the inflated shape to show a clear difference in bending angle. However, based on visual inspection alone, this difference wasn’t immediately obvious, which led me to start looking for a way to extract and quantify the angle without relying on perception alone.
 
 <figure style="text-align: center;">
   <img src="assets/angle-visual-check.png" alt="Comparison of simulated bends">
   <figcaption><em>
-    Side-by-side screenshots from different simulation runs. Despite varying the triangle geometry, the bending angle differences are not visually obvious — highlighting the need for a more objective way to quantify deformation.
+    Side-by-side screenshots from different simulation runs. Despite varying the triangle geometry, the bending angle differences are not visually obvious, highlighting the need for a more objective way to quantify deformation.
   </em></figcaption>
 </figure>
 
@@ -155,25 +153,30 @@ That’s what led me to increase the number of vertices in the input geometry. B
 
 To figure out how to track motion, I first needed to choose which points to follow and how to locate them reliably in the mesh.
 
-My initial idea was to track points along the centreline of the inflatable — for example, `[0.05, 0.00, 0.0], [0.05, 0.20, 0.0]`, and `[0.05, 0.40, 0.0]`. This was before scaling the model to 10×20 dimensions, but even then the results were inconsistent. When I printed the tracked coordinates, I noticed they had shifted — possibly due to remeshing or triangulation differences between runs.
+My initial idea was to track points along the centreline of the inflatable — for example, $[0.05,\ 0.00,\ 0.0],\ [0.05,\ 0.20,\ 0.0]$, and $[0.05, 0.40, 0.0]$. This was before scaling the model to $10×20$ dimensions, but even then the results were inconsistent. When I printed the tracked coordinates, I noticed they had shifted — possibly due to remeshing or triangulation differences between runs.
 
 Technically, I started by locating these points in the mesh using direct distance matching against the raw vertex list (`m.vertices()`), but that wasn’t robust. So I switched to a more reliable method: using `isheet.restWallVertexPositions()` and a KDTree to find the nearest mesh vertex to each target coordinate. This made the tracking far more consistent.
 
-To simplify, I switched to tracking along the **left edge** instead: `[0.00, 0.00, 0.0]`, `[0.00, 10, 0.0]`, and `[0.00, 20, 0.0]`. My reasoning was that these would be easier to identify and match across frames, and that tracking along the edge would allow me to observe the bending angle more clearly — since the deformation would occur upward or downward, it would be visible from a lateral view.
+To simplify, I switched to tracking along the **left edge** instead: $[0.00,\ 0.00,\ 0.0]$, $[0.00,\ 10,\ 0.0]$, and $[0.00,\ 20,\ 0.0]$. My reasoning was that these would be easier to identify and match across frames, and that tracking along the edge would allow me to observe the bending angle more clearly — since the deformation would occur upward or downward, it would be visible from a lateral view.
 
-At the same time, I began thinking about fixing one of the links, as in physical setups, the base of the inflatable often rests on a surface, such as a table. In the simulation, there’s no limiting surface, so I tried pinning points along the X-axis (where Y = 0), then by mistake on the left edge (where X=0),which is what the following video shows  or try to create an area instead of lined point with three points like `[0, 0], [0, 10], [5, 10]`.
+At the same time, I began thinking about fixing one of the links, as in physical setups, the base of the inflatable often rests on a surface, such as a table. In the simulation, there’s no limiting surface, so I tried pinning points along the $X-axis$ (where $Y = 0$), then by mistake on the left edge (where $X=0$),which is what the following video shows  or try to create an area instead of lined point with three points like $[0, 0]$, $[0, 10]$, $[5, 10]$.
 
 <div style="text-align: center;">
   <video controls width="600">
     <source src="assets/inflation_mp.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <p><em>Torsion effect caused when pinning was applied along the left edge (X = 0). </em></p>
+  <p><em>Torsion effect caused when pinning was applied along the left edge <math><mi>X</mi><mo>=</mo><mn>0</mn></math>. </em></p>
 </div>
 
 <div style="text-align: center;">
   <img src="assets/displacement-t.jpg" alt="Torsion plot from left edge pinning" width="600">
-  <p><em>Figure 5: Plot showing the tracked positions when pinning was applied along X = 0, for the following mesh vertices: vertex 0 = (0, 0), vertex 496 = (0, 10), and vertex 397 = (0, 20). These correspond to the base, hinge, and tip along the left edge of the inflatable.</em></p>
+  <p><em>    Figure 5: Plot showing the tracked positions when pinning was applied along
+    <math><mi>X</mi><mo>=</mo><mn>0</mn></math>, for the following mesh vertices:
+    <math><mtext>vertex</mtext><mspace width=".3em"/><mn>0</mn><mo>=</mo><mo>(</mo><mn>0</mn><mo>,</mo><mspace width=".25em"/><mn>0</mn><mo>)</mo></math>,
+    <math><mtext>vertex</mtext><mspace width=".3em"/><mn>496</mn><mo>=</mo><mo>(</mo><mn>0</mn><mo>,</mo><mspace width=".25em"/><mn>10</mn><mo>)</mo></math>, and
+    <math><mtext>vertex</mtext><mspace width=".3em"/><mn>397</mn><mo>=</mo><mo>(</mo><mn>0</mn><mo>,</mo><mspace width=".25em"/><mn>20</mn><mo>)</mo></math>.
+    These correspond to the base, hinge, and tip along the left edge of the inflatable.</em></p>
 </div>
 
 But all of these introduced unexpected **torsion** during inflation — a twisting behaviour that I hadn’t observed in physical tests. It’s worth noting that pinning in the simulator means constraining points in 3D space, which is different from simply resting an object on a surface under gravity.
@@ -186,15 +189,15 @@ Interestingly, although it's assumed that increasing the density of fused points
 
 With the pinned points removed, the simulation no longer exhibited unwanted torsion, and the results were cleaner overall.
 
-And finally — what I probably should have done from the beginning — I used the tracked points to compute the bending angle directly using the cosine rule, instead of just plotting their displacement over time.
+And finally, what I probably should have done from the beginning, I used the tracked points to compute the bending angle directly using the cosine rule, instead of just plotting their displacement over time.
 
 ### Table: Tracked vs. Geometric Inputs
 
-| $\ a$  (bottom triangle height) | $\ b$ (top triangle height) | Tracked Angle (simulation) | θ Calculated ($\ w=3$ ) |
-| ------------------------------- | --------------------------- | -------------------------- | ----------------------- |
-| 2                               | 2                           | 44.09°                     | 97.18°                  |
-| 3                               | 2                           | 50.65°                     | 70.53°                  |
-| 4                               | 2                           | 100.96°                    | 46.57°                  |
+| $$\ a$$  (bottom triangle height) | $$\ b$$ (top triangle height) | $$Tracked\ Angle $$(simulation) | $$θ\  Calculated$$ ($\ w=3$ ) |
+| --------------------------------- | ----------------------------- | ------------------------------- | ----------------------------- |
+| $2$                               | $2$                           | $44.09°$                        | $97.18°$                      |
+| $3$                               | $2$                           | $50.65°$                        | $70.53°$                      |
+| $4$                               | $2$                           | $100.96°$                       | $46.57°$                      |
 
 > [!info] Note: 
 > Here, $\ w=3$ is taken as the seam width, based on the base length of the diamond, which remains constant across simulations.
@@ -220,7 +223,7 @@ Below, I’ll include the video and plots for one of the examples (e.g. $\ a=2, 
   </figcaption>
 </figure>
 > [!info] Note: 
-> **vertex 0 = (0, 0), vertex 12 = (0, 10), and vertex 5 = (0, 20).** 
+>  $vertex\ 0 = (0, 0)$, $vertex\ 12 = (0, 10)$, and $vertex\ 5 = (0, 20)$.
 > These correspond to the base, hinge, and tip along the left edge of the inflatable.
 
 <figure style="text-align: center;">
@@ -243,7 +246,8 @@ Below, I’ll include the video and plots for one of the examples (e.g. $\ a=2, 
 <figure style="text-align: center;">
   <img src="assets/trackedvstarget-t5.jpg" alt="Final tracked points (2D)" width="600">
   <figcaption>
-    <em>Figure 9: Final position of tracked points vs. intended target in 2D (XY plane).</em>
+    <em>Figure 9: Final position of tracked points vs. intended target in 2D (<math><mi>XY</mi></math>
+ plane).</em>
   </figcaption>
 </figure>
 
@@ -263,15 +267,15 @@ The bending angle formula used earlier,
 
 $$\theta = \arccos\left(\frac{a^2 + b^2 - w^2}{2ab}\right)$$
 
-assumes a specific geometric interpretation: `a` and `b` are the lengths from the hinge point (where the two triangles meet) to the seam tips, and `w` is the seam width — the inextensible distance between those seam tips.
+assumes a specific geometric interpretation: $a$ and $b$ are the lengths from the hinge point (where the two triangles meet) to the seam tips, and $w$ is the seam width — the inextensible distance between those seam tips.
 
-However, in some diagrams (like Figure 7 from the Inflatables paper), `a` and `b` are shown as horizontal components, implying that `w = a + b`. If we plug this into the equation:
+However, in some diagrams (like Figure 1 from the Inflatables paper), $a$ and $b$ are shown as horizontal components, implying that $w = a + b$. If we plug this into the equation:
 
 $$
 \theta = \arccos\left(\frac{a^2 + b^2 - (a + b)^2}{2ab}\right) = \arccos(-1) = 180^\circ
 $$
 
-we get a flat structure with no bending, which contradicts both the physical outcome and the aim of the formula. This highlights a key misunderstanding: if `w = a + b`, the equation will always yield 180°, meaning no bending occurs. So, for bending to happen, `w` must be **strictly less than** `a + b`.
+we get a flat structure with no bending, which contradicts both the physical outcome and the aim of the formula. This highlights a key misunderstanding: if $w = a + b$, the equation will always yield $180°$, meaning no bending occurs. So, for bending to happen, $w$ must be **strictly less than** $a + b$.
 
 This mismatch between diagram labelling and formula assumptions likely contributes to the discrepancy between simulated angles and theoretical predictions.
 
@@ -280,8 +284,7 @@ This mismatch between diagram labelling and formula assumptions likely contribut
 
 ---
 
-### Physical Reference: Aeromorph Hinge Behaviour
-
+### Physical Reference: [[Aeromorph Hinge Behaviour]] 
 The Aeromorph paper provides a physical reference, showing that as the height of the diamond increases (while width is fixed), the resulting bend becomes more pronounced.
 
 <figure style="text-align: center;">
@@ -292,4 +295,4 @@ The Aeromorph paper provides a physical reference, showing that as the height of
   </figcaption>
 </figure>
 
-In my case, I varied `a` while keeping `b` fixed as a way to control the triangle proportions and induce different bending angles under the law of cosines. However, based on the diagram discrepancy and physical results, I will revisit the mapping between design parameters and analytical predictions to ensure the setup reflects the intended formulation.
+In my case, I varied $a$ while keeping $b$ fixed as a way to control the triangle proportions and induce different bending angles under the law of cosines. However, based on the diagram discrepancy and physical results, I will revisit the mapping between design parameters and analytical predictions to ensure the setup reflects the intended formulation.
