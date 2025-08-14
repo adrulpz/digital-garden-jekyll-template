@@ -69,4 +69,39 @@ For the measurements, I took two approaches:
 2. **Figure 4:** When the diamond’s $y$-axis was visible, I drew a line and extended it to the assumed edges of the pouches. In most cases, $a$ and $b$ would have to be extended to meet these points. In this case, I calculated $\theta$ using $a$ and $b$ as if they were inextensible, but substituted the newly measured $w$ from each image. The resulting angles are shown in green.
 
 
+From these measurements, we can observe that the pouches are nearly square, with dimensions of approximately $3.\text{something} \times 3.12$ in all cases. This allows us to normalize the scale of the diamond’s $x$-axis (the one that remains constant) to $2.45$, assuming it represents $0.8$ of the pouch width.
 
+With this normalization, we can establish a relationship between the diamond’s $x$- and $y$-axes and the resulting bending angle — either the one measured manually from the inflated images, or the one obtained using the law of cosines (assuming $a$ and $b$ are inextensible and using the measured $w$).
+
+| $x\ axis$ | $y\ axis$ | $y/x$   | $y/x\ chosen$ | $fraction$     | $θ\ observed\  (°)$ | $diff\ (°)$ | $θ\ calculated\ (°)$ | $diff\ (°)$ |
+| --------- | --------- | ------- | ------------- | -------------- | ------------------- | ----------- | -------------------- | ----------- |
+| $2.45$    | $0.85$    | $0.347$ | $0.4$         | $\tfrac{2}{5}$ | $62$                | -           | $62$ *               | -           |
+| $2.45$    | $1.37$    | $0.559$ | $0.6$         | $\tfrac{2}{5}$ | $80$                | $18$        | $87.52$              | $25.52$     |
+| $2.45$    | $2.12$    | $0.865$ | $0.8$         | $\tfrac{2}{5}$ | $95$                | $15$        | $104.95$             | $17.43$     |
+| $2.45$    | $3.07$    | $1.253$ | $1.2$         | $\tfrac{2}{5}$ | $112$               | $17$        | $132.41$             | $27.46$     |
+| $2.45$    | $3.64$    | $1.486$ | $1.4$         | $\tfrac{2}{5}$ | $122$               | $10$        | $107.30$             | $-25.11$    |
+
+
+To compare my simulation results with the Aeromorph-style proportions, I first fitted two simple empirical models to my measurement data:
+
+- **Linear model:** $\theta \approx 50.72 \cdot (y/x) + 48.45$    
+- **Power-law model:** $\theta \approx 101.76 \cdot (y/x)^{0.45}$    
+
+These models map the diamond aspect ratio $y/x$ directly to a bending angle without needing $a$, $b$, or $w$ separately. They aren’t intended as exact physics — only as quick trend fits to see whether the **MeshFEM Inflatables** simulations follow a similar relationship.
+
+<figure>
+  <img src="assets/yx-vs-theta-fits.png" alt="Aspect ratio vs bending angle, with linear and power-law fits">
+  <figcaption>
+    Figure 5. Observed bending angles from manual Aeromorph measurements (black dots) compared with two empirical fits: a linear model (red dashed line) and a power-law model (blue solid line). The y/x ratio corresponds to the diamond’s vertical-to-horizontal axis proportion.
+  </figcaption>
+</figure>
+
+To make the comparison consistent, I scaled all designs to a pouch width of **10 cm**, fixing the diamond’s $x$-axis at $8\ \text{cm}$ (0.8 × pouch width) and calculating the $y$-axis from the chosen $y/x$ ratios.
+
+| $x\ \text{(cm)}$ | $y\ \text{(cm)}$ | $y/x\ \text{chosen}$ | $\theta_{\text{pred, linear}}\ (^\circ)$ | $\theta_{\text{pred, power}}\ (^\circ)$ |
+| ---------------- | ---------------- | -------------------- | ---------------------------------------- | --------------------------------------- |
+| $8.0$            | $3.2$            | $0.4$                | $68.74$                                  | $67.30$                                 |
+| $8.0$            | $4.8$            | $0.6$                | $78.88$                                  | $80.81$                                 |
+| $8.0$            | $6.4$            | $0.8$                | $89.02$                                  | $92.01$                                 |
+| $8.0$            | $9.6$            | $1.2$                | $109.31$                                 | $110.48$                                |
+| $8.0$            | $11.2$           | $1.4$                | $119.46$                                 | $118.44$                                |
