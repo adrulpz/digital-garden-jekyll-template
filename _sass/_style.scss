@@ -5,7 +5,7 @@
   --text-color: #4a3427;
   --primary-color: #4a3427;
   --border-color: #beab9c;
-  --box-background: #e5d6cc;
+  --box-background: #BEAB9C;
   --link-color: #6b4f3f;
   --link-hover-color: #8b6f5f;
   --code-background: #f5f5f5;
@@ -252,6 +252,7 @@ nav {
 
 .backlink-box {
   background: $color-box-background;
+  color: var(--text-color);
   padding: 1em;
   border-radius: $border-radius;
 }
@@ -350,7 +351,7 @@ code {
   }
 }
 
-// CSS-only admonition styles
+// Regular blockquote styles (for actual quotes)
 blockquote {
   margin: 1.5em 0;
   padding: 1em 1.5em;
@@ -358,130 +359,69 @@ blockquote {
   background: $color-box-background;
   border-radius: 4px;
   position: relative;
-
-  // Info admonition - matches [!info] syntax
-  &:has(p:first-child:contains("[!info]")),
-  &:has(p:first-child:contains("[!note]")) {
-    border-left-color: #0066cc;
-    background: #e6f3ff;
-    
-    &::before {
-      content: "ℹ️ ";
-      font-weight: bold;
-      margin-right: 0.5em;
-    }
-  }
-
-  // Tip admonition
-  &:has(p:first-child:contains("[!tip]")) {
-    border-left-color: #28a745;
-    background: #e6ffe6;
-    
-    &::before {
-      content: "💡 ";
-      font-weight: bold;
-      margin-right: 0.5em;
-    }
-  }
-
-  // Warning admonition
-  &:has(p:first-child:contains("[!warning]")) {
-    border-left-color: #ffc107;
-    background: #fff8e6;
-    
-    &::before {
-      content: "⚠️ ";
-      font-weight: bold;
-      margin-right: 0.5em;
-    }
-  }
-
-  // Error admonition
-  &:has(p:first-child:contains("[!error]")) {
-    border-left-color: #dc3545;
-    background: #ffe6e6;
-    
-    &::before {
-      content: "❌ ";
-      font-weight: bold;
-      margin-right: 0.5em;
-    }
-  }
 }
 
-// Alternative approach using attribute selectors
-blockquote[data-admonition="info"],
-blockquote[data-admonition="note"] {
-  border-left-color: #0066cc !important;
-  background: #e6f3ff !important;
-  
-  &::before {
-    content: "ℹ️ ";
-    font-weight: bold;
-    margin-right: 0.5em;
-  }
-}
-
-blockquote[data-admonition="tip"] {
-  border-left-color: #28a745 !important;
-  background: #e6ffe6 !important;
-  
-  &::before {
-    content: "💡 ";
-    font-weight: bold;
-    margin-right: 0.5em;
-  }
-}
-
-blockquote[data-admonition="warning"] {
-  border-left-color: #ffc107 !important;
-  background: #fff8e6 !important;
-  
-  &::before {
-    content: "⚠️ ";
-    font-weight: bold;
-    margin-right: 0.5em;
-  }
-}
-
-blockquote[data-admonition="error"] {
-  border-left-color: #dc3545 !important;
-  background: #ffe6e6 !important;
-  
-  &::before {
-    content: "❌ ";
-    font-weight: bold;
-    margin-right: 0.5em;
-  }
-}
 
 // HTML-based admonition classes
 .admonition {
   margin: 1.5em 0;
   padding: 1em 1.5em;
-  border-radius: 4px;
+  border-radius: 6px;
   border-left: 4px solid;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+
+  // Style the icon and make title bold
+  strong {
+    margin-right: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: inline-block;
+  }
 
   &.info,
   &.note {
     border-left-color: var(--admonition-info-border);
     background: var(--admonition-info-bg);
+    color: var(--text-color, #1a365d);
+    
+    strong {
+      color: var(--admonition-info-border) !important;
+      font-weight: bold !important;
+    }
   }
 
   &.tip {
     border-left-color: var(--admonition-tip-border);
     background: var(--admonition-tip-bg);
+    color: var(--text-color, #1a4a1a);
+    
+    strong {
+      color: var(--admonition-tip-border) !important;
+      font-weight: bold !important;
+    }
   }
 
   &.warning {
     border-left-color: var(--admonition-warning-border);
     background: var(--admonition-warning-bg);
+    color: var(--text-color, #4a3a1a);
+    
+    strong {
+      color: var(--admonition-warning-border) !important;
+      font-weight: bold !important;
+    }
   }
 
   &.error {
     border-left-color: var(--admonition-error-border);
     background: var(--admonition-error-bg);
+    color: var(--text-color, #4a1a1a);
+    
+    strong {
+      color: var(--admonition-error-border) !important;
+      font-weight: bold !important;
+    }
   }
 }
 

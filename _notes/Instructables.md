@@ -6,7 +6,7 @@ category:
 
 I was scrolling through Instructables the other day and found this awesome project: [Medieval Fantasy Helmet Crafted From Paper](https://www.instructables.com/Medieval-Fantasy-Helmet-Crafted-From-Paper/). It looks super detailed, but what really caught my eye was how the creator made it, they used a program called **Pepakura**.  
 
-![Medieval Fantasy Helmet](medieval-helmet.png)  
+![Medieval Fantasy Helmet]({{ '/assets/medieval-helmet.png' | relative_url }})
 
 Basically, Pepakura takes a 3D model and flattens it into 2D pieces that you can print, cut out, and glue back together into the full 3D shape. It’s kind of like digital origami ,only with glue tabs.  
 

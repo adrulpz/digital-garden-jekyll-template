@@ -4,7 +4,7 @@ category: research
 ---
 These are my technical notes on how the MeshFEM simulation pipeline for inflatables works, based on my understanding of the repository at [MeshFEM Inflatables](https://github.com/MeshFEM/Inflatables). They include details on how mesh inputs are defined, how regions are tagged and mapped, and how the physical simulation and output stages are handled.
  
- > [!warning] Work in progress  
+>[!warning] Work in progress  
 > These notes are based on my current understanding from experimenting with the MeshFEM Inflatables simulator. I’ve tried to be accurate, but things might be missing or misunderstood, and I’ll likely update this as I keep testing and learning.
 
 
@@ -25,7 +25,9 @@ At a high level, the workflow proceeds as follows:
 5. **Inflation simulation**: The inflation behavior is computed using a Newton-Raphson solver that minimizes a total energy functional composed of:
 
 	  - **In-plane stretch energy**
+	
 	  - **Bending energy**
+	  
 	  - **Pressure-volume coupling**	
 	
 6. **Visualization and analysis**: Simulation results are visualized either interactively in a Jupyter environment or offscreen for video rendering. The mesh deformation, seam behavior, and internal pressure response can be inspected at each time step.
